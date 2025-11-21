@@ -1,0 +1,114 @@
+<template>
+
+    <lightning-card title="Data Manager">
+        <!-- Header Action Button -->
+        <div slot="actions">
+            <lightning-button
+                variant="neutral"
+                icon-name="utility:settings"
+                label="Select Data To Display"
+                onclick={toggleConfigPanel}>
+            </lightning-button>
+        </div>
+
+        <div class="slds-p-around_medium">
+
+            <!-- Configuration Panel -->
+            <template if:true={showConfigPanel}>
+                <!-- Select Object -->
+                <lightning-combobox
+                    label="Select Object"
+                    value={selectedObject}
+                    options={objectOptions}
+                    onchange={handleObjectChange}>
+                </lightning-combobox>
+
+                <!-- Select Fields -->
+                <template if:true={selectedObject}>
+                    <lightning-dual-listbox
+                        name="fields"
+                        label="Select Fields"
+                        source-label="Available Fields"
+                        selected-label="Selected Fields"
+                        field-level-help="Choose fields to display"
+                        options={fieldOptions}
+                        value={selectedFields}
+                        onchange={handleFieldChange}>
+                    </lightning-dual-listbox>
+                </template>
+
+                <!-- Buttons -->
+                <div class="slds-m-top_large slds-grid slds-grid_align-spread">
+                    <lightning-button
+                        variant="brand"
+                        label="Load Data"
+                        onclick={loadData}>
+                    </lightning-button>
+
+                    <lightning-button
+                        variant="neutral"
+                        label="Cancel"
+                        onclick={toggleConfigPanel}>
+                    </lightning-button>
+                </div>
+            </template>
+
+            <div class="slds-m-top_large slds-grid slds-grid_align-spread">
+                <template if:true={hasRecords}>
+                    <lightning-input
+                        label="Search"
+                        type="search"
+                        placeholder="Type here to search.."
+                        value={searchKey}
+                        data-id="searchInput"
+                        onchange={handleSearchChange}>
+                    </lightning-input>  
+        
+                    <!-- <lightning-button
+                    variant="neutral"
+                    label="Search"
+                    onclick={handleSearch}>
+                    </lightning-button> -->
+                </template>
+            </div>
+    
+
+            <!-- Grid Section -->
+            <div class="slds-m-top_large slds-border_top slds-p-top_medium">
+                <template if:true={hasRecords}>
+                    <div class="slds-m-top_large slds-grid_align-end">
+                    <lightning-button
+                    label="Download CSV"
+                    onclick={downloadCSVServer}
+                    class="my-custom-button">
+                    </lightning-button>
+                </div>
+                <div class="slds-m-top_large">
+                   <c-editable-grid
+                    filtered-records={filteredRecords}
+                    columns={columns}
+                    onsave={handleSave}>
+                </c-editable-grid>
+                </div>
+                </template>
+
+
+                <!-- No records found -->
+                <template if:true={noRecordsFound}>
+                    <div class="slds-text-align_center slds-m-top_large slds-text-color_weak">
+                        No records found for your selection.
+                    </div>
+                </template>
+
+                <!-- No data loaded yet -->
+                <template if:true={noDataLoaded}>
+                    <div class="slds-text-align_center slds-m-top_large slds-text-color_weak">
+                        No data loaded. Click "Select Data To Display" to begin.
+                    </div>
+                </template>
+            </div>
+
+        </div>
+    </lightning-card>
+
+</template>

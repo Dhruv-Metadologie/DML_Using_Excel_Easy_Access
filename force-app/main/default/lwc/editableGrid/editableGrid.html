@@ -1,0 +1,12 @@
+<template>
+    <lightning-datatable
+        wrap-text-max-lines="3"
+        show-row-number-column="true"
+        key-field="Id"
+        data={filteredRecords}
+        columns={columns}
+        draft-values={draftValues}
+        onsave={handleSave}
+        hide-checkbox-column>
+    </lightning-datatable>
+</template>

@@ -1,0 +1,23 @@
+<template>
+    <lightning-combobox
+        label="Select Object"
+        value={selectedObject}
+        options={objectOptions}
+        placeholder="Select Object"
+        onchange={handleObjectChange}>
+    </lightning-combobox>
+
+    <lightning-dual-listbox
+        name="fields"
+        label="Select Fields"
+        source-label="Available Fields"
+        selected-label="Selected Fields"
+        options={fieldOptions}
+        value={selectedFields}
+        onchange={handleFieldChange}>
+    </lightning-dual-listbox>
+
+    <!-- <div class="agGridContainer" style="height: 400px; width: 100%; margin-top: 20px;"></div> -->
+
+    <lightning-button label="Save" onclick={handleSave} class="slds-m-top_medium"></lightning-button>
+</template>
